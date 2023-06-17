@@ -1,51 +1,45 @@
 import React from 'react'
 import "./Cart.scss"
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+import { useDispatch, useSelector } from 'react-redux';
+import { removeItem ,resetCart} from '../../redux/cartReducer';
 
 export const Cart = () => {
-    const data = [
-    {id:1,
-    img:"https://us.coca-cola.com/content/dam/nagbrands/us/coke/en/products/coke-zero-sugar/kozs-plp-thumbnail.png",
-    img2:"https://m.media-amazon.com/images/I/61XxVmvUUXL.jpg",
-    title:"Tiiitle",
-    isNew:true,
-    oldPrice:19,
-    desc:"sssssssssss",
-    price:12
-},
-    {id:1,
-    img:"https://pyxis.nymag.com/v1/imgs/c3c/028/f79d167d262322a14d41d62d22d4695d77-redness.rsquare.w700.jpg",
-    img2:"https://www.drdoppelt.com/wp-content/uploads/clear-nontinted.jpg",
-    title:"Tiiitle",
-    isNew:true,
-    oldPrice:19,
-    desc:"sssssssssss",
-    price:12
-}
-]
+    const products = useSelector(state=>state.cart.products)
+      const dispatch = useDispatch()
+    const totalPrice = ()=>{
+        let total = 0;
+        products.forEach((item) => {
+            total +=item.quantity * item.price;
+            
+        });
+        return total.toFixed(2)
+
+    }
   return (<>
   <div className="cart">
     <h1>Products in your Cart</h1>
-    {data?.map(item=>(
+    {products?.map(item=>(
     
     <div className='item' key={item.id}>
-        <img src={item.img} alt=''/>
+        <img src={process.env.REACT_APP_UPLOAD_URL + item.img} alt=''/>
         <div className="details">
             <h1>{item.title}</h1>
             <p>{item.desc?.substring(0,100)}</p>
             <div className="price">
-                1 X ${item.price}
+                {item.quantity} X ${item.price}
             </div>
         </div>
-    <DeleteOutlinedIcon className='delete'/>
+    <DeleteOutlinedIcon className='delete'
+    onClick={()=>dispatch(removeItem(item.id))}/>
 
     </div>))}
     <div className="total">
         <span>SUBTOTAL</span>
-        <span>$123</span>
+        <span>${totalPrice()}</span>
     </div>
     <button>PROCEED TO CHECKOUT</button>
-    <span className='reset'>Reset Cart</span>
+    <span className='reset'onClick={()=>dispatch(resetCart())}>Reset Cart</span>
 
   </div>
   
