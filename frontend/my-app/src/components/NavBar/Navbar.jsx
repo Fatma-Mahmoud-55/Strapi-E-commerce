@@ -16,7 +16,7 @@ export const Navbar = () => {
         <div className="wrapper">
             <div className="left">
                 <div className="item">
-                <img src="/images/en.png"/>
+                <img src="/images/en.png" alt=''/>
                 <KeyboardArrowDownIcon/>
                 </div>
                 <div className="item">

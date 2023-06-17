@@ -4,34 +4,35 @@ import { useState } from 'react'
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import BalanceIcon from "@mui/icons-material/Balance";
+import useFetch from './../../hooks/useFetch';
+import { useParams } from 'react-router-dom';
 
 export const ProductDetails = () => {
    const [quantity, setQuantity] = useState(1);
-  const [selectedImg,setSelectedImg] = useState(0)
+  const [selectedImg,setSelectedImg] = useState("img")
+  const id = useParams().id
 
-  const images = [
-    "https://us.coca-cola.com/content/dam/nagbrands/us/coke/en/products/coke-zero-sugar/kozs-plp-thumbnail.png",
-    "https://m.media-amazon.com/images/I/61XxVmvUUXL.jpg"
-  ]
+  const {data,loading,error} = useFetch(`/products/${id}?populate=*`)
+
+
   return (<>
   <div className="productDetails">
+    {loading ? "loading" : (<>
+    
     <div className="left">
       <div className="images">
-        <img src={images[0]} onClick={(e)=>setSelectedImg(0)}/>
-        <img src={images[1]} onClick={(e)=>setSelectedImg(1)}/>
+        <img src={process.env.REACT_APP_UPLOAD_URL + data?.attributes?.img?.data?.attributes?.url} onClick={(e)=>setSelectedImg("img")} alt=''/>
+        <img src={process.env.REACT_APP_UPLOAD_URL + data?.attributes?.img2?.data?.attributes?.url} onClick={(e)=>setSelectedImg("img2")} alt=''/>
+        
       </div>
       <div className="mainImg">
-        <img src={images[selectedImg]}/>
+        <img src={process.env.REACT_APP_UPLOAD_URL + data?.attributes[selectedImg]?.data?.attributes?.url}  alt=''/>
       </div>
     </div>
     <div className="right">
-       <h1>title</h1>
-            <span >$ 123</span>
-            <p>Lorem ipsum dolor sit amet consectetur a
-              dipisicing elit. Reprehenderit consectetur, facil'
-              is, voluptate ab, nostrum quibusdam maxime
-               rem doloremque aperiam dolorum est dicta ducimus cum.
-               Blanditiis maxime nisi distinctio repellat dolorem!</p>
+       <h1>{data?.attributes?.title}</h1>
+            <span >$ {data?.attributes?.price}</span>
+            <p>{data?.attributes?.desc}</p>
 
        <div className="quantity">
               <button
@@ -72,6 +73,7 @@ export const ProductDetails = () => {
               <span>FAQ</span>
             </div>
     </div>
+    </>)}
   </div>
   
   

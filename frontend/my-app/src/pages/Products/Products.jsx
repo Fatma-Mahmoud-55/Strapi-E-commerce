@@ -2,29 +2,40 @@ import React, { useState } from 'react'
 import "./Products.scss"
 import { List } from './../../components/List/List';
 import { useParams } from 'react-router-dom';
+import useFetch from '../../hooks/useFetch';
 
 export const Products = () => {
   const catId = parseInt(useParams().id)
   const [maxPrice,setMAxPrice] = useState(1000)
   const [sort,setSort] = useState(null)
+  const [selectedSubCats,setSelectedSubCats] = useState([])
+
+  const {data,loading,error} = useFetch(`/sub-categories?[filters][categories][id][$eq]=${catId}`)
+  
+  const handleChange = (ev)=>{
+    const value = ev.target.value;
+    const isChecked = ev.target.checked;
+    setSelectedSubCats(
+      isChecked ?
+      [...selectedSubCats,value]
+      : selectedSubCats.filter((item)=>item !==value)
+    )
+
+  }
+console.log(selectedSubCats)
   return (
     <>
     <div className="products">
       <div className="left">
         <div className="filterItem">
           <h2>Product Categories</h2>
-          <div className="inputItem">
-            <input type='checkbox' id='1' value={1}/>
-            <label htmlFor='1'>Women</label>
+          {data?.map((item)=>(
+          <div className="inputItem" key={item.id}>
+            <input type='checkbox' id={item.id} value={item.id} onChange={handleChange}/>
+            <label htmlFor={item.id}>{item.attributes.title}</label>
           </div>
-          <div className="inputItem">
-            <input type='checkbox' id='2' value={2}/>
-            <label htmlFor='2'>Men</label>
-          </div>
-          <div className="inputItem">
-            <input type='checkbox' id='3' value={3}/>
-            <label htmlFor='3'>Kids</label>
-          </div>
+          ))
+          }
         </div>
         <div className="filterItem">
           <h2>Filter by Price</h2>
@@ -48,9 +59,12 @@ export const Products = () => {
       </div>
       <div className="right">
         <img 
+        alt=''
         className='catImg'
         src='https://media.vogue.co.uk/photos/62dab9ea653f405e4447401c/16:9/w_1920%2Cc_limit/AcielleStyleDuMonde_LFWSS22_DAY2-63.jpg'/>
-        <List catId={catId} maxPrice={maxPrice} sort={sort}/>
+        <List catId={catId} maxPrice={maxPrice} sort={sort} selectedSubCats={selectedSubCats}
+        
+        />
       </div>
 
     </div>

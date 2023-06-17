@@ -24,7 +24,7 @@ export const Slider = () => {
         
         {data.map((img)=>{
             return(
-                <img src={img}/>
+                <img src={img} alt=''/>
             )
         })}
     </div>

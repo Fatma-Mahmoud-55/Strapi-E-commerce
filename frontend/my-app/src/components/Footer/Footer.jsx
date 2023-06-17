@@ -49,7 +49,7 @@ export const Footer = () => {
 
                     </div>
                     <div className="right">
-                        <img src='/images/payment.png'/>
+                        <img src='/images/payment.png' alt=''/>
                     </div>
 
                 </div>
