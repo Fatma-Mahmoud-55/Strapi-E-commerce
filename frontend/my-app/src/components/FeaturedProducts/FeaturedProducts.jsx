@@ -1,5 +1,6 @@
-import React, {useFetch} from 'react'
+import React, {useEffect, useFetch, useState} from 'react'
 import "./FeaturedProducts.scss"
+import axios from "axios"
 import { Card } from './../Card/Card';
 
 export const FeaturedProducts = ({type}) => {
@@ -40,7 +41,26 @@ const data = [
     price:12
 },
 ]
+const [resData,setData] = useState([])
 
+useEffect(()=>{
+    const fetchData = async ()=>{
+        try{
+            const data = await axios.get(process.env.REACT_APP_API_URL+"/products" ,
+            {
+                headers:{
+                    Authorization: "bearer" + process.env.REACT_APP_API_TOKEN,
+                }
+            })
+            console.log(data)
+
+        }catch(err){
+            console.log(err)
+        }
+
+    }
+fetchData();
+},[])
   return (<>
   <div className="featuredProducts">
     <div className="top">
