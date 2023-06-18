@@ -3,9 +3,11 @@ import "./Cart.scss"
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import { useDispatch, useSelector } from 'react-redux';
 import { removeItem ,resetCart} from '../../redux/cartReducer';
+import {loadStripe} from '@stripe/stripe-js';
+import { makeRequest } from '../../makeRequest';
 
 export const Cart = () => {
-    const products = useSelector(state=>state.cart.products)
+    const products = useSelector((state)=>state.cart.products)
       const dispatch = useDispatch()
     const totalPrice = ()=>{
         let total = 0;
@@ -14,6 +16,22 @@ export const Cart = () => {
             
         });
         return total.toFixed(2)
+
+    }
+    const stripePromise = loadStripe('pk_test_51NBxofIj0GGRUwkdvSefvp4N1RPrdI2wU02Bznpab23pHfbmfU53xPwARv1ZDRjXmBlDXi8cE8uPq4PiHZShdED300uyGsW4Er');
+    const handlePayment = async ()=>{
+        try{
+            const stripe = await stripePromise;
+            const res = await makeRequest.post("/orders",{
+                products,
+            })
+            await stripe.redirectToCheckout({
+                sessionId: res.data.stripeSession.id,
+            })
+            
+        }catch(err){
+            console.log(err)
+        }
 
     }
   return (<>
@@ -38,7 +56,7 @@ export const Cart = () => {
         <span>SUBTOTAL</span>
         <span>${totalPrice()}</span>
     </div>
-    <button>PROCEED TO CHECKOUT</button>
+    <button onClick={handlePayment}>PROCEED TO CHECKOUT</button>
     <span className='reset'onClick={()=>dispatch(resetCart())}>Reset Cart</span>
 
   </div>
