@@ -4,6 +4,7 @@ import { FeaturedProducts } from './../../components/FeaturedProducts/FeaturedPr
 import { Categories } from './../../components/Categories/Categories';
 import { ContactUs } from '../../components/ContactUs/ContactUs';
 
+
 export const Home = () => {
   return (
     <>

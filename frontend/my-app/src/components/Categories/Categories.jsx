@@ -8,28 +8,35 @@ export const Categories = () => {
     <div className="categories">
         <div className="col">
             <div className="row">
-                <img alt='' src='https://images.asos-media.com/products/asos-design-t-shirt-with-mexico-and-palm-tree-pocket-graphic-print-in-off-white/202824801-1-offwhite?$n_640w$&wid=513&fit=constrain'></img>
+                <img alt=''
+                 src="https://images.pexels.com/photos/818992/pexels-photo-818992.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                />
+              
                 <button>
                     <Link className='link' to="/products/1">
-                        Sale
+                        WOMEN
                     </Link>
                 </button>
             </div>
             <div className="row">
-                <img alt='' src='https://images.asos-media.com/products/only-crew-neck-t-shirt-in-black/201930154-1-black'></img>
+                <img alt='' 
+                src="https://images.pexels.com/photos/2036646/pexels-photo-2036646.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                />
                 <button>
-                    <Link className='link' to="/products/1">
-                        Sale
+                    <Link className='link' to="/products/2">
+                        WOMEN
                     </Link>
                 </button>
             </div>
         </div>
         <div className="col">
             <div className="row">
-                 <img alt='' src='https://images.asos-media.com/products/asos-design-t-shirt-with-mexico-and-palm-tree-pocket-graphic-print-in-off-white/202824801-1-offwhite?$n_640w$&wid=513&fit=constrain'></img>
+                 <img alt='' 
+                   src="https://images.pexels.com/photos/1813947/pexels-photo-1813947.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                 />
                 <button>
                     <Link className='link' to="/products/1">
-                        Sale
+                        MEN
                     </Link>
                 </button>
             </div>
@@ -38,17 +45,20 @@ export const Categories = () => {
             <div className="row">
                 <div className="col">
                     <div className="row">
-                         <img alt='' src='https://images.asos-media.com/products/asos-design-t-shirt-with-mexico-and-palm-tree-pocket-graphic-print-in-off-white/202824801-1-offwhite?$n_640w$&wid=513&fit=constrain'></img>
+                         <img alt='' 
+                         src="https://images.pexels.com/photos/1192609/pexels-photo-1192609.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                         />
                 <button>
                     <Link className='link' to="/products/1">
-                        Sale
+                        MEN
                     </Link>
                 </button>
                     </div>
                 </div>
                 <div className="col">
                     <div className="row">
-                         <img alt='' src='https://images.asos-media.com/products/asos-design-t-shirt-with-mexico-and-palm-tree-pocket-graphic-print-in-off-white/202824801-1-offwhite?$n_640w$&wid=513&fit=constrain'></img>
+                         <img alt=''
+                         src="https://images.pexels.com/photos/2703202/pexels-photo-2703202.jpeg?auto=compress&cs=tinysrgb&w=1600"/>
                 <button>
                     <Link className='link' to="/products/1">
                         Sale
@@ -58,7 +68,8 @@ export const Categories = () => {
                     </div>
             </div>
             <div className="row">
-                 <img alt='' src='https://images.asos-media.com/products/asos-design-t-shirt-with-mexico-and-palm-tree-pocket-graphic-print-in-off-white/202824801-1-offwhite?$n_640w$&wid=513&fit=constrain'></img>
+                 <img alt='' 
+                 src="https://i.pinimg.com/564x/a1/e7/36/a1e736c3d081a517fca0875a08f30c46.jpg"/>
                 <button>
                     <Link className='link' to="/products/1">
                         Sale
