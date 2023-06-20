@@ -47,9 +47,9 @@
       "type": "boolean",
       "default": false
     },
-    "category": {
+    "categories": {
       "type": "relation",
-      "relation": "manyToOne",
+      "relation": "manyToMany",
       "target": "api::category.category",
       "inversedBy": "products"
     },

@@ -1,66 +1,4 @@
-// // @ts-ignore
-// const stripe = require('stripe')(process.env.STRIPE_KEY);
-
-// 'use strict';
-
-// /**
-//  * order controller
-//  */
-
-// const { createCoreController } = require('@strapi/strapi').factories;
-
-// module.exports = createCoreController('api::order.order',({strapi})=>({
-//     async create(ctx){
-//         const { products} = ctx.request.body;
-//         const lineItems = await Promise.all(
-           
-//             // @ts-ignore
-//             products.map(async (product)=> 
-//             // @ts-ignore
-//             { const item = await strapi.service("api::product.product").findOne(product.id)
-//             return {
-//                 price_data:{
-//                     currency:'usd',
-//                     product_data:{
-//                         name : item.title,
-
-//                     },
-//                     unit_amount: item.price*100,
-//                 },
-//                 quantity: item.quantity
-                
-                
-//             }
-        
-//         })
-//         )
-//         try{
-//             const session = await stripe.checkout.sessions.create({
-//                 mode: 'payment',
-//                 success_url: `${process.env.CLIENT_URL }?success=true`,
-//                 cancel_url: `${process.env.CLIENT_URL }?cancel=false`,
-//                 line_items:lineItems,
-//                 shipping_address_collection:{allowed_countries:["Cairo","Sohag","Qena"]},
-//                 payment_method_types: ["card"]
-//             })
-//             // @ts-ignore
-//             await strapi.service("api::order.order").create({
-//                 data: {
-//                     products,
-//                     stripeId: session.id
-//                 }
-//             })
-//             return {stripeSession : session}
-
-//         }catch(err){
-//             ctx.response.status = 500
-//             return err
-
-//         }
-//     }
-// }));
-
-
+// @ts-nocheck
 ("use strict");
 // @ts-ignore
 const stripe = require("stripe")(process.env.STRIPE_KEY);
@@ -89,7 +27,7 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
                             },
                             unit_amount: Math.round(item.price * 100),
                         },
-                        quantity: product.quantity,
+                        quantity: item.quantity,
                     };
                 })
             );
@@ -103,10 +41,8 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
                 line_items: lineItems,
             });
 
-            await strapi
-                .service("api::order.order")
-                // @ts-ignore
-                .create({ data: { products, stripeId: session.id } });
+            await strapi.service("api::order:order").create({
+                data: { products, stripeId: session.id } });
 
             return { stripeSession: session };
         } catch (error) {
